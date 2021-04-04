@@ -1,0 +1,66 @@
+{{^notSection}}{{nestLevelMd}} {{title}}{{/notSection}}
+{{#customContent}}
+
+{{nextNestLevelMd}} Description
+
+{{.}}
+{{/customContent}}
+{{#hasProperties}}
+
+{{nextNestLevelMd}} Properties
+
+|Property|Value|
+|--------|-----|
+{{#properties.visibleProperties}}
+|**{{definition.title}}**|{{value}}|
+{{/properties.visibleProperties}}
+{{/hasProperties}}
+{{#hasLinkList}}
+
+{{nextNestLevelMd}} Child pages
+
+{{#linkList}}
+* [{{title}}]({{slug}}.md)
+{{/linkList}}
+{{/hasLinkList}}
+{{#hasLinkTable}}
+
+{{nextNestLevelMd}} Child pages
+
+{{#linkTable}}
+|{{#definitions.definitions}}{{title}}|{{/definitions.definitions}}
+|{{#definitions.definitions}}-------|{{/definitions.definitions}}
+{{#rows}}
+|{{#properties}}{{#childSlug}}[{{/childSlug}}{{value}}{{#childSlug}}]({{.}}.md){{/childSlug}}|{{/properties}}
+{{/rows}}
+{{/linkTable}}
+{{/hasLinkTable}}
+{{#hasCollections}}
+{{#ownCollections}}
+
+{{nextNestLevelMd}} {{title}}
+
+|{{#definitions.definitions}}{{title}}|{{/definitions.definitions}}
+|{{#definitions.definitions}}-------|{{/definitions.definitions}}
+{{#rows}}
+|{{#properties}}{{value}}|{{/properties}}
+{{/rows}}
+{{/ownCollections}}
+{{/hasCollections}}
+{{#hasRelationshipGroups}}
+
+{{nextNestLevelMd}} Relationships
+{{#relationshipGroups}}
+
+#{{nextNestLevelMd}} {{typeTitle}}
+
+{{#pages}}
+* [{{linkedPageTitle}}](./{{linkedPageSlug}}.md)
+{{/pages}}
+{{/relationshipGroups}}
+{{/hasRelationshipGroups}}
+{{#hasSections}}
+{{#sections}}
+{{> section}}
+{{/sections}}
+{{/hasSections}}

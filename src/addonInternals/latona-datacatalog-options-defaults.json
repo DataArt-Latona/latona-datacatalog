@@ -1,0 +1,199 @@
+{
+  "paths": {
+    "outPath": "./output",
+    "customContentPath": "./content"
+  },
+  "renderFormat": "md",
+  "pageTreeFileName": "___page_tree___.json",
+  "conf": {
+    "createNotesPage": true,
+    "notesSlugSuffix": "-notes",
+    "notesTitleSuffix": " - Notes",
+    "modelConfig": {
+      "spaceKey": "TEST"
+    }
+  },
+  "catalogs": {
+    "dataCatalog": {
+      "collection": "tables",
+      "title": "Data catalog",
+      "slug": ".datacatalog",
+      "sectionBy": {
+        "first": {
+          "properties": [
+            { "name": "db", "path": "db", "title": "Database", "show": false }
+          ],
+          "inParentAs": "linkList",
+          "tableLinkProperty": "db",
+          "titleTemplate": "Database - ${db}",
+          "slugTemplate": "db-[${db}]"
+        },
+        "second": {
+          "properties": [
+            {
+              "name": "db",
+              "path": "db",
+              "title": "Database",
+              "show": true,
+              "showInLinkTable": true
+            },
+            {
+              "name": "schema",
+              "path": "schema",
+              "title": "Schema",
+              "show": true,
+              "showInLinkTable": true
+            },
+            {
+              "name": "tableCount",
+              "path": "$items.length",
+              "title": "Table count",
+              "show": true,
+              "showInLinkTable": true
+            }
+          ],
+          "inParentAs": "section",
+          "tableLinkProperty": "schema",
+          "titleTemplate": "Schema - [${db}].[${schema}]",
+          "slugTemplate": "sc-[${db}].[${schema}]"
+        }
+      },
+      "details": {
+        "properties": [
+          {
+            "name": "db",
+            "path": "db",
+            "title": "Database",
+            "show": false,
+            "showInLinkTable": false
+          },
+          {
+            "name": "schema",
+            "path": "schema",
+            "title": "Schema",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "tableName",
+            "path": "tableName",
+            "title": "Table name",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "fieldCount",
+            "path": "fields.length",
+            "title": "Field count",
+            "show": true,
+            "showInLinkTable": true
+          }
+        ],
+        "inParentAs": "linkTable",
+        "tableLinkProperty": "tableName",
+        "titleTemplate": "Table - [${db}].[${schema}].[${tableName}]",
+        "slugTemplate": "[${db}].[${schema}].[${tableName}]"
+      },
+      "detailsCollections": {
+        "fields": {
+          "collection": "fields",
+          "properties": [
+            { "name": "fieldName", "path": "fieldName", "title": "Field name" },
+            { "name": "sqlType", "path": "sqlType", "title": "SQL Type" }
+          ],
+          "heading": "Fields"
+        }
+      }
+    },
+    "businessProcessCatalog": {
+      "collection": "collections.businessProcesses",
+      "title": "Business processes catalog",
+      "slug": ".bpcatalog",
+      "sectionBy": {
+        "first": {
+          "properties": [
+            {
+              "name": "group",
+              "path": "group",
+              "title": "Group",
+              "show": false,
+              "showInLinkTable": false
+            }
+          ],
+          "inParentAs": "section",
+          "tableLinkProperty": "group",
+          "titleTemplate": "Process group - ${group}",
+          "slugTemplate": "bpgroup-${group}"
+        }
+      },
+      "details": {
+        "properties": [
+          {
+            "name": "group",
+            "path": "group",
+            "title": "Group",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "title",
+            "path": "title",
+            "title": "Name",
+            "show": true,
+            "showInLinkTable": true
+          }
+        ],
+        "inParentAs": "linkTable",
+        "tableLinkProperty": "title",
+        "titleTemplate": "Process - ${title}",
+        "slugTemplate": "${id}"
+      }
+    },
+    "applicationsCatalog": {
+      "collection": "collections.applications",
+      "title": "Applications catalog",
+      "slug": ".appcatalog",
+      "sectionBy": {
+        "first": {
+          "properties": [
+            {
+              "name": "group",
+              "path": "group",
+              "title": "Group",
+              "show": false,
+              "showInLinkTable": false
+            }
+          ],
+          "inParentAs": "section",
+          "tableLinkProperty": "group",
+          "titleTemplate": "App group - ${group}",
+          "slugTemplate": "appgroup-${group}"
+        }
+      },
+      "details": {
+        "properties": [
+          {
+            "name": "group",
+            "path": "group",
+            "title": "Group",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "title",
+            "path": "title",
+            "title": "Name",
+            "show": true,
+            "showInLinkTable": true
+          }
+        ],
+        "inParentAs": "linkTable",
+        "tableLinkProperty": "title",
+        "titleTemplate": "App - ${title}",
+        "slugTemplate": "${id}"
+      }
+    }
+  },
+  "relationshipsCollection": "relationships",
+  "relationshipTypesCollection": "relationshipTypes"
+}

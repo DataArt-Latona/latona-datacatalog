@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "definitions": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "properties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "$ref": "#/definitions/nonEmptyString" },
+          "path": { "$ref": "#/definitions/nonEmptyString" },
+          "title": { "$ref": "#/definitions/nonEmptyString" },
+          "show": { "type": "boolean" },
+          "showInLinkTable": { "type": "boolean" }
+        },
+        "required": ["name", "path", "title"],
+        "additionalProperties": false
+      }
+    },
+    "detailsCollection": {
+      "type": "object",
+      "properties": {
+        "collection": { "$ref": "#/definitions/nonEmptyString" },
+        "properties": { "$ref": "#/definitions/properties" },
+        "heading": { "$ref": "#/definitions/nonEmptyString" }
+      },
+      "required": ["collection", "properties", "heading"],
+      "additionalProperties": false
+    },
+    "sectionDefinition": {
+      "type": "object",
+      "properties": {
+        "properties": { "$ref": "#/definitions/properties" },
+        "inParentAs": {
+          "type": "string",
+          "enum": ["linkTable", "linkList", "section"]
+        },
+        "tableLinkProperty": { "$ref": "#/definitions/nonEmptyString" },
+        "titleTemplate": { "$ref": "#/definitions/nonEmptyString" },
+        "slugTemplate": { "$ref": "#/definitions/nonEmptyString" }
+      },
+      "required": ["properties", "inParentAs", "titleTemplate", "slugTemplate"],
+      "additionalProperties": false
+    },
+    "sectionBy": {
+      "type": "object",
+      "properties": {
+        "first": { "$ref": "#/definitions/sectionDefinition" },
+        "second": { "$ref": "#/definitions/sectionDefinition" }
+      },
+      "required": ["first"],
+      "additionalProperties": false
+    },
+    "catalog": {
+      "type": "object",
+      "properties": {
+        "collection": { "$ref": "#/definitions/nonEmptyString" },
+        "title": { "$ref": "#/definitions/nonEmptyString" },
+        "slug": { "$ref": "#/definitions/nonEmptyString" },
+        "sectionBy": { "$ref": "#/definitions/sectionBy" },
+        "details": { "$ref": "#/definitions/sectionDefinition" },
+        "detailsCollections": {
+          "patternProperties": {
+            "^[a-zA-Z]+$": { "$ref": "#/definitions/detailsCollection" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["collection", "title", "slug", "details"],
+      "additionalProperties": false
+    },
+    "catalogCollection": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z]+$": {
+          "$ref": "#/definitions/catalog"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "paths": {
+      "type": "object",
+      "properties": {
+        "outPath": { "$ref": "#/definitions/nonEmptyString" },
+        "customContentPath": { "$ref": "#/definitions/nonEmptyString" }
+      },
+      "required": ["outPath"],
+      "additionalProperties": false
+    },
+    "renderFormat": { "type": "string", "enum": ["md", "html", "conf"] },
+    "pageTreeFileName": { "$ref": "#/definitions/nonEmptyString" },
+    "conf": {
+      "type": "object",
+      "properties": {
+        "createNotesPage": { "type": "boolean" },
+        "notesSlugSuffix": { "$ref": "#/definitions/nonEmptyString" },
+        "notesTitleSuffix": { "$ref": "#/definitions/nonEmptyString" },
+        "modelConfig": {
+          "spaceKey": { "type": "string" }
+        }
+      },
+      "required": ["createNotesPage", "notesSlugSuffix", "notesTitleSuffix"],
+      "additionalProperties": false
+    },
+    "relationshipsCollection": { "$ref": "#/definitions/nonEmptyString" },
+    "relationshipTypesCollection": { "$ref": "#/definitions/nonEmptyString" },
+    "catalogs": {
+      "$ref": "#/definitions/catalogCollection"
+    },
+    "dropDefaultCatalogs": { "type": "boolean" }
+  },
+  "required": [
+    "paths",
+    "renderFormat",
+    "pageTreeFileName",
+    "catalogs",
+    "relationshipsCollection",
+    "relationshipTypesCollection"
+  ],
+  "additionalProperties": false
+}

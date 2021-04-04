@@ -1,0 +1,37 @@
+{
+  "collection": "collections.simple",
+  "title": "Simple catalog",
+  "slug": ".simplecatalog",
+  "details": {
+    "properties": [
+      {
+        "name": "tableName",
+        "path": "tableName",
+        "title": "Table name",
+        "show": true,
+        "showInLinkTable": true
+      },
+      {
+        "name": "fieldCount",
+        "path": "fields.length",
+        "title": "Field count",
+        "show": true,
+        "showInLinkTable": true
+      }
+    ],
+    "inParentAs": "section",
+    "tableLinkProperty": "tableName",
+    "titleTemplate": "Table - [${db}].[${schema}].[${tableName}]",
+    "slugTemplate": "tbl-[${db}].[${schema}].[${tableName}]"
+  },
+  "detailsCollections": {
+    "someCollection": {
+      "collection": "fields",
+      "properties": [
+        { "name": "fieldName", "path": "fieldName", "title": "Field name" },
+        { "name": "sqlType", "path": "sqlType", "title": "SQL Type" }
+      ],
+      "heading": "Fields"
+    }
+  }
+}

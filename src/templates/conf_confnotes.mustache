@@ -1,0 +1,26 @@
+<h1>Notes</h1>
+<ac:adf-extension>
+  <ac:adf-node type="panel">
+    <ac:adf-attribute key="panel-type">note</ac:adf-attribute>
+    <ac:adf-content>
+        <p>Edit  
+          <ac:link ac:card-appearance="inline">
+            <ri:page ri:content-title="{{title}}" ri:version-at-save="1" />
+            <ac:link-body>this page</ac:link-body>
+          </ac:link> to add notes for {{confParentTitle}}
+        </p>
+    </ac:adf-content>
+  </ac:adf-node>
+  <ac:adf-fallback>
+    <div class="panel conf-macro output-block" style="background-color: rgb(234,230,255);border-color: rgb(153,141,217);border-width: 1.0px;">
+      <div class="panelContent" style="background-color: rgb(234,230,255);">
+        <p>Edit   
+          <ac:link ac:card-appearance="inline">
+            <ri:page ri:content-title="{{title}}" ri:version-at-save="1" />
+            <ac:link-body>this page</ac:link-body>
+          </ac:link> to add notes for {{confParentTitle}}
+        </p>
+      </div>
+    </div>
+  </ac:adf-fallback>
+</ac:adf-extension>
