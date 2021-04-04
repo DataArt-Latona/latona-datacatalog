@@ -6,9 +6,7 @@
   "scripts": {
     "test": "mocha ./test/**/*.spec.js",
     "lint": "npx eslint .",
-    "coverage": "nyc --all --reporter=html --reporter=text --reporter=lcov npm run test",
-    "docs": "jsdoc2md ./index.js ./src/**/*.js --separators --name-format >./docs/dev/API.md",
-    "bumpp": "bump patch"
+    "coverage": "nyc --all --reporter=html --reporter=text --reporter=lcov npm run test"
   },
   "repository": {
     "type": "git",
@@ -25,11 +23,11 @@
   },
   "dependencies": {
     "ajv": "^6.12.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^4.0.0",
     "commander": "^5.1.0",
     "fs-extra": "^7.0.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "markdown-it": "^10.0.0",
     "mustache": "^3.2.1",
     "p-limit": "^3.0.2",
