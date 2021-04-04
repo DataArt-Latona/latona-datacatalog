@@ -1,9 +1,9 @@
-name: ci/cd - develop
+name: ci/cd - main
 
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   build_and_test:
@@ -23,15 +23,16 @@ jobs:
       - run: npm ci
       - run: npm test
 
-  bump:
+  publish:
     needs: build_and_test
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      - name: "Automated Version Bump"
-        uses: "phips28/gh-action-bump-version@master"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Publish as latest"
+        uses: JS-DevTools/npm-publish@v1
         with:
-          target-branch: "develop"
+          token: ${{ secrets.NPM_TOKEN }}
+          tag: "latest"
+          access: "public"
+          check-version: false
