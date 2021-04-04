@@ -1,0 +1,114 @@
+{
+  "paths": {
+    "outPath": "./output",
+    "customContentPath": "./content"
+  },
+  "renderFormat": "md",
+  "pageTreeFileName": "___page_tree___.json",
+  "conf": {
+    "createNotesPage": true,
+    "notesSlugSuffix": "-notes",
+    "notesTitleSuffix": " - Notes"
+  },
+  "catalogs": {
+    "dataCatalog": {
+      "collection": "tables",
+      "title": "Data catalog",
+      "slug": ".datacatalog",
+      "sectionBy": {
+        "first": {
+          "properties": [
+            { "name": "db", "path": "db", "title": "Database", "show": false },
+            {
+              "name": "tableCount",
+              "path": "$length",
+              "title": "Table count",
+              "show": false
+            }
+          ],
+          "inParentAs": "linkList",
+          "tableLinkProperty": "db",
+          "titleTemplate": "Database - ${db}",
+          "slugTemplate": "db-[${db}]"
+        },
+        "second": {
+          "properties": [
+            {
+              "name": "db",
+              "path": "db",
+              "title": "Database",
+              "show": true,
+              "showInLinkTable": true
+            },
+            {
+              "name": "schema",
+              "path": "schema",
+              "title": "Schema",
+              "show": true,
+              "showInLinkTable": true
+            },
+            {
+              "name": "tableCount",
+              "path": "$length",
+              "title": "Table count",
+              "show": true,
+              "showInLinkTable": true
+            }
+          ],
+          "inParentAs": "linkTable",
+          "tableLinkProperty": "schema",
+          "titleTemplate": "Schema - [${db}].[${schema}]",
+          "slugTemplate": "sc-[${db}].[${schema}"
+        }
+      },
+      "details": {
+        "properties": [
+          {
+            "name": "db",
+            "path": "db",
+            "title": "Database",
+            "show": false,
+            "showInLinkTable": false
+          },
+          {
+            "name": "schema",
+            "path": "schema",
+            "title": "Schema",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "tableName",
+            "path": "tableName",
+            "title": "Table name",
+            "show": true,
+            "showInLinkTable": true
+          },
+          {
+            "name": "fieldCount",
+            "path": "fields.length",
+            "title": "Field count",
+            "show": true,
+            "showInLinkTable": true
+          }
+        ],
+        "inParentAs": "section",
+        "tableLinkProperty": "tableName",
+        "titleTemplate": "Table - [${db}].[${schema}].[${tableName}]",
+        "slugTemplate": "tbl-[${db}].[${schema}].[${tableName}]"
+      },
+      "detailsCollections": {
+        "someCollection": {
+          "collection": "fields",
+          "properties": [
+            { "name": "fieldName", "path": "fieldName", "title": "Field name" },
+            { "name": "sqlType", "path": "sqlType", "title": "SQL Type" }
+          ],
+          "heading": "Fields"
+        }
+      }
+    }
+  },
+  "relationshipsCollection": "relationships",
+  "relationshipTypesCollection": "relationshipTypes"
+}

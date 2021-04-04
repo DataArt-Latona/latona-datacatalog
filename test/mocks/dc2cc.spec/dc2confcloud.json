@@ -1,0 +1,20 @@
+{
+  "confluence": {
+    "baseUrl": "oksandbox.atlassian.net",
+    "spaceKey": "ART"
+  },
+  "contentFolder": "../../output/addon.spec",
+  "notesSuffix": " - Notes",
+  "pageTree": "_.json",
+  "parents": [
+    {
+      "slug": ".datacatalog",
+      "confPageId": 3997837
+    },
+    {
+      "slug": ".bpcatalog",
+      "confPageId": 4096124
+    }
+  ],
+  "simultaneousThreads": 10
+}

@@ -1,0 +1,585 @@
+{
+  "tables": [
+    {
+      "db": "orders",
+      "schema": "dbo",
+      "tableName": "DimClient",
+      "tableScope": "dim",
+      "keyPrefix": "client_",
+      "options": {
+        "addSurrogateKey": true,
+        "addVersionKey": true
+      },
+      "fields": [
+        {
+          "fieldName": "client_id",
+          "sqlType": "int",
+          "options": {
+            "isPersistent": true,
+            "isNKey": true
+          }
+        },
+        {
+          "fieldName": "client_name",
+          "sqlType": "nvarchar(10)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "client_category",
+          "sqlType": "nvarchar(10)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        }
+      ]
+    },
+    {
+      "db": "orders",
+      "schema": "dbo",
+      "tableName": "DimOrder",
+      "tableScope": "dim",
+      "keyPrefix": "order_",
+      "options": {
+        "addSurrogateKey": true,
+        "addVersionKey": true
+      },
+      "fields": [
+        {
+          "fieldName": "order_id",
+          "sqlType": "int",
+          "options": {
+            "isPersistent": true,
+            "isNKey": true
+          }
+        },
+        {
+          "fieldName": "region",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "city",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "zip_code",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "sales_person",
+          "sqlType": "nvarchar(10)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        }
+      ]
+    },
+    {
+      "db": "orders",
+      "schema": "dbo",
+      "tableName": "DimProduct",
+      "tableScope": "dim",
+      "keyPrefix": "dim_product_",
+      "options": {
+        "addSurrogateKey": true,
+        "addVersionKey": true
+      },
+      "fields": [
+        {
+          "fieldName": "product_id",
+          "sqlType": "int",
+          "options": {
+            "isPersistent": true,
+            "isNKey": true
+          }
+        },
+        {
+          "fieldName": "product_name",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "product_category_1",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "product_category_2",
+          "sqlType": "nvarchar(100)",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        }
+      ]
+    },
+    {
+      "db": "orders",
+      "schema": "dbo",
+      "tableName": "FactOrderItem",
+      "tableScope": "fact",
+      "keyPrefix": "order_item_",
+      "options": {
+        "addSurrogateKey": true,
+        "addVersionKey": true
+      },
+      "references": ["DimClient", "DimOrder", "DimProduct"],
+      "fields": [
+        {
+          "fieldName": "order_item_id",
+          "sqlType": "int",
+          "options": {
+            "isPersistent": true,
+            "isNKey": true
+          }
+        },
+        {
+          "fieldName": "order_date",
+          "sqlType": "int",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "item_delivered_date",
+          "sqlType": "int",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        },
+        {
+          "fieldName": "price",
+          "sqlType": "float",
+          "options": {
+            "isPublic": true,
+            "isVersioned": true
+          }
+        }
+      ]
+    },
+    {
+      "db": "orders",
+      "schema": "dbo",
+      "tableName": "DimDate",
+      "tableScope": "other",
+      "fields": [
+        {
+          "fieldName": "date_key",
+          "sqlType": "int",
+          "options": {
+            "isPersistent": true,
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "FullDateAlternateKey",
+          "sqlType": "date",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "DayNumberOfWeek",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "EnglishDayNameOfWeek",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "SpanishDayNameOfWeek",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "FrenchDayNameOfWeek",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "DayNumberOfMonth",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "DayNumberOfYear",
+          "sqlType": "smallint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "WeekNumberOfYear",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "EnglishMonthName",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "SpanishMonthName",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "FrenchMonthName",
+          "sqlType": "nvarchar(20)",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "MonthNumberOfYear",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "CalendarQuarter",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "CalendarYear",
+          "sqlType": "smallint",
+          "options": {
+            "isPublic": true
+          }
+        },
+        {
+          "fieldName": "CalendarSemester",
+          "sqlType": "tinyint",
+          "options": {
+            "isPublic": true
+          }
+        }
+      ]
+    },
+    {
+      "db": "orders_staging",
+      "schema": "raw",
+      "tableName": "RawOrderItems",
+      "tableScope": "raw",
+      "fields": [
+        {
+          "fieldName": "client_id",
+          "sqlType": "int"
+        },
+        {
+          "fieldName": "client_name",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "client_category",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "order_id",
+          "sqlType": "int"
+        },
+        {
+          "fieldName": "region",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "city",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "zip_code",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "sales_person",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "product_id",
+          "sqlType": "int"
+        },
+        {
+          "fieldName": "product_name",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "product_category_1",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "product_category_2",
+          "sqlType": "nvarchar(100)"
+        },
+        {
+          "fieldName": "order_item_id",
+          "sqlType": "int"
+        },
+        {
+          "fieldName": "order_date",
+          "sqlType": "datetime"
+        },
+        {
+          "fieldName": "item_delivered_date",
+          "sqlType": "datetime"
+        },
+        {
+          "fieldName": "price",
+          "sqlType": "float"
+        }
+      ]
+    }
+  ],
+  "sourceDataSets": [
+    {
+      "dataSetName": "RawOrderItemsDS",
+      "query": "select * from vOrderItems",
+      "schemaTable": "RawOrderItems"
+    }
+  ],
+  "collections": {
+    "businessProcesses": [
+      {
+        "id": "bp-purchase",
+        "group": "Purchase",
+        "title": "Purchase process"
+      },
+      {
+        "id": "bp-marketing-research",
+        "group": "Marketing",
+        "title": "Market research"
+      },
+      {
+        "id": "bp-sales-orders-processing",
+        "group": "Sales",
+        "title": "Orders processing"
+      },
+      {
+        "id": "bp-sales-payments",
+        "group": "Sales",
+        "title": "Payment processing"
+      }
+    ],
+    "applications": [
+      {
+        "id": "app-crm-salesforce",
+        "group": "CRM",
+        "title": "Salesforce"
+      },
+      {
+        "id": "app-web-front",
+        "group": "Web",
+        "title": "Site - www.oursalessite.com"
+      },
+      {
+        "id": "app-web-lending",
+        "group": "Web",
+        "title": "Landing - www.oursalessite.com"
+      },
+      {
+        "id": "app-web-back",
+        "group": "Backoffice",
+        "title": "Backoffice app"
+      },
+      {
+        "id": "app-etl",
+        "group": "ETL",
+        "title": "Main ETL pipeline"
+      }
+    ],
+    "relationshipTypes": [
+      {
+        "id": "fk",
+        "title_forward": "Referenced tables",
+        "title_backward": "Referencing tables"
+      },
+      {
+        "id": "dataflow",
+        "title_forward": "Downstream tables",
+        "title_backward": "Upstream tables"
+      },
+      {
+        "id": "bp2da",
+        "title_forward": "Related data assets",
+        "title_backward": "Related business processes"
+      },
+      {
+        "id": "app2da-read",
+        "title_forward": "Reads from",
+        "title_backward": "Read by"
+      },
+      {
+        "id": "app2da-write",
+        "title_forward": "Writes to",
+        "title_backward": "Written by"
+      },
+      {
+        "id": "app2da-uses",
+        "title_forward": "Data assets used",
+        "title_backward": "Used by apps"
+      }
+    ],
+    "relationships": [
+      {
+        "typeId": "app2da-read",
+        "source": "app-etl",
+        "target": "[orders_staging].[raw].[RawOrderItems]"
+      },
+      {
+        "typeId": "app2da-write",
+        "source": "app-etl",
+        "target": "[orders].[dbo].[FactOrderItem]"
+      },
+      {
+        "typeId": "app2da-write",
+        "source": "app-etl",
+        "target": "[orders].[dbo].[DimDate]"
+      },
+      {
+        "typeId": "app2da-write",
+        "source": "app-etl",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "app2da-write",
+        "source": "app-etl",
+        "target": "[orders].[dbo].[DimOrder]"
+      },
+      {
+        "typeId": "app2da-write",
+        "source": "app-etl",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "fk",
+        "source": "[orders].[dbo].[FactOrderItem]",
+        "target": "[orders].[dbo].[DimDate]"
+      },
+      {
+        "typeId": "fk",
+        "source": "[orders].[dbo].[FactOrderItem]",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "fk",
+        "source": "[orders].[dbo].[FactOrderItem]",
+        "target": "[orders].[dbo].[DimOrder]"
+      },
+      {
+        "typeId": "fk",
+        "source": "[orders].[dbo].[FactOrderItem]",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "dataflow",
+        "source": "[orders_staging].[raw].[RawOrderItems]",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "dataflow",
+        "source": "[orders_staging].[raw].[RawOrderItems]",
+        "target": "[orders].[dbo].[DimOrder]"
+      },
+      {
+        "typeId": "dataflow",
+        "source": "[orders_staging].[raw].[RawOrderItems]",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "dataflow",
+        "source": "[orders_staging].[raw].[RawOrderItems]",
+        "target": "[orders].[dbo].[FactOrderItem]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-purchase",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-marketing-research",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-marketing-research",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-orders-processing",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-orders-processing",
+        "target": "[orders].[dbo].[DimOrder]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-orders-processing",
+        "target": "[orders].[dbo].[DimProduct]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-orders-processing",
+        "target": "[orders].[dbo].[FactOrderItem]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-payments",
+        "target": "[orders].[dbo].[DimClient]"
+      },
+      {
+        "typeId": "bp2da",
+        "source": "bp-sales-payments",
+        "target": "[orders].[dbo].[DimOrder]"
+      }
+    ]
+  }
+}

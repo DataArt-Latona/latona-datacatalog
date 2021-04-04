@@ -1,0 +1,114 @@
+{
+  "model": "./model.json",
+  "addons": [
+    {
+      "moduleName": "latona-core-autofields",
+      "options": {
+        "fieldTemplates": [
+          {
+            "tableOption": "addSurrogateKey",
+            "addKeyPrefix": true,
+            "fieldTemplate": {
+              "fieldName": "s_key",
+              "sqlType": "uniqueidentifier",
+              "options": {
+                "isPublic": true,
+                "isSKey": true
+              }
+            }
+          },
+          {
+            "tableOption": "addVersionKey",
+            "addKeyPrefix": true,
+            "fieldTemplate": {
+              "fieldName": "v_key",
+              "sqlType": "uniqueidentifier",
+              "options": {
+                "isPublic": true,
+                "isVKey": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "moduleName": "latona-core-copy-fields",
+      "options": {
+        "rules": [
+          {
+            "fieldOptions": ["isNKey"],
+            "unsetOptions": ["isNKey", "isSKey", "isPublic"]
+          },
+          {
+            "fieldOptions": ["isSKey"],
+            "unsetOptions": ["isNKey", "isSKey"]
+          }
+        ]
+      }
+    },
+    {
+      "moduleName": "latona-core-clean-folders",
+      "options": {
+        "foldersToClean": ["../../output/addon.spec/conf", "../../output/addon.spec/md", "../../output/addon.spec/html"]
+      }
+    },
+    {
+      "moduleName": "../../../src/addon.js",
+      "options": {
+        "paths": {
+          "outPath": "../../output/addon.spec/conf"
+        },
+        "catalogs": {
+          "dataCatalog": {
+            "sectionBy": {
+              "second": {
+                "inParentAs": "section"
+              }
+            }
+          }
+        },
+        "renderFormat": "conf"
+      }
+    },
+    {
+      "moduleName": "../../../src/addon.js",
+      "options": {
+        "paths": {
+          "outPath": "../../output/addon.spec/html"
+        },
+        "catalogs": {
+          "dataCatalog": {
+            "sectionBy": {
+              "second": {
+                "inParentAs": "section"
+              }
+            }
+          }
+        },
+        "renderFormat": "html"
+      }
+    },
+    {
+      "moduleName": "../../../src/addon.js",
+      "options": {
+        "paths": {
+          "outPath": "../../output/addon.spec/md"
+        },
+        "catalogs": {
+          "dataCatalog": {
+            "sectionBy": {
+              "second": {
+                "inParentAs": "section"
+              }
+            }
+          }
+        },
+        "renderFormat": "md"
+      }
+    }
+  ],
+  "logger": {
+    "disableLogToConsole": false
+  }
+}

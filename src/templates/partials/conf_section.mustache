@@ -1,0 +1,120 @@
+{{^notSection}}
+<h{{nestLevel}}>{{title}}</h{{nestLevel}}>
+{{/notSection}}
+{{#customContent}}
+<h{{nextNestLevel}}>Description</h{{nextNestLevel}}>
+{{{.}}}
+{{/customContent}}
+{{#hasProperties}}
+<h{{nextNestLevel}}>Properties</h{{nextNestLevel}}>
+<ac:structured-macro ac:name="details" ac:schema-version="1" data-layout="default">
+  <ac:rich-text-body>
+    <table data-layout="default">
+      <tbody>
+      {{#properties.visibleProperties}}
+        <tr>
+          <th>{{definition.title}}</th>
+          <td>{{value}}</td>
+        </tr>
+      {{/properties.visibleProperties}}
+      </tbody>
+    </table>
+  </ac:rich-text-body>
+</ac:structured-macro>
+{{/hasProperties}}
+{{#hasLinkList}}
+<h{{nextNestLevel}}>Child pages</h{{nextNestLevel}}>
+<div>
+  <ul>
+    {{#linkList}}
+    <li>
+      <ac:link ac:card-appearance="inline">
+        <ri:page ri:content-title="{{title}}" ri:version-at-save="1" ri:space-key="{{modelConfig.spaceKey}}"/>
+        <ac:link-body>{{title}}</ac:link-body>
+      </ac:link>
+    </li>
+    {{/linkList}}
+    {{#pages}}
+    {{/pages}}
+  </ul>
+</div>
+{{/hasLinkList}}
+{{#hasLinkTable}}
+<h{{nextNestLevel}}>Child pages</h{{nextNestLevel}}>
+{{#linkTable}}
+<table data-layout="default">
+  <tbody>
+    <tr>
+      {{#definitions.definitions}}
+      <th><p><strong>{{title}}</strong></p></th>
+      {{/definitions.definitions}}
+    </tr>
+    {{#rows}}
+      <tr>
+        {{#properties}}
+          <td>
+            <p>
+              {{#childTitle}}
+                <ac:link ac:card-appearance="inline">
+                  <ri:page ri:content-title="{{.}}" ri:version-at-save="1" ri:space-key="{{modelConfig.spaceKey}}"/>
+                  <ac:link-body>{{value}}</ac:link-body>
+                </ac:link>
+              {{/childTitle}}  
+              {{^childTitle}}  
+                {{value}}
+              {{/childTitle}}  
+            </p>
+          </td>
+        {{/properties}}
+      </tr>
+    {{/rows}}
+  </tbody>
+</table>
+{{/linkTable}}
+{{/hasLinkTable}}
+{{#hasCollections}}
+{{#ownCollections}}
+<h{{nextNestLevel}}>{{title}}</h{{nextNestLevel}}>
+<table data-layout="default">
+  <tbody>
+    <tr>
+      {{#definitions.definitions}}
+      <th><p>{{title}}</p></th>
+      {{/definitions.definitions}}
+    </tr>
+    {{#rows}}
+      <tr>
+        {{#properties}}
+          <td><p>
+            {{value}}
+          </p></td>
+        {{/properties}}
+      </tr>
+    {{/rows}}
+  </tbody>
+</table>
+{{/ownCollections}}
+{{/hasCollections}}
+{{#hasRelationshipGroups}}
+<h{{nextNestLevel}}>Relationships</h{{nextNestLevel}}>
+{{#relationshipGroups}}
+<h{{nextNextNestLevel}}>{{typeTitle}}</h{{nextNextNestLevel}}>
+<div>
+  <ul>
+    {{#pages}}
+    <li>  
+      <ac:link ac:card-appearance="inline">
+        <ri:page ri:content-title="{{linkedPageTitle}}" ri:version-at-save="1" ri:space-key="{{modelConfig.spaceKey}}"/>
+        <ac:link-body>{{linkedPageTitle}}</ac:link-body>
+      </ac:link>
+    </li>
+    {{/pages}}
+  </ul>
+</div>
+{{/relationshipGroups}}
+{{/hasRelationshipGroups}}
+{{#hasSections}}
+{{#sections}}
+{{> section}}
+{{/sections}}
+{{/hasSections}}

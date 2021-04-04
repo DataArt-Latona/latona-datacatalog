@@ -1,0 +1,29 @@
+# dependencies
+/node_modules/
+/**/node_modules/
+
+# IDE
+.vscode/*
+.prettierrc
+
+# CI/CD
+.github/**
+
+# misc
+npm-debug.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# log files
+/logs/*
+
+# build output
+/build
+/**/build
+
+# tests
+/coverage
+/.nyc_output
+/test/**

@@ -1,0 +1,110 @@
+{{^notSection}}
+<h{{nestLevel}} class="mt-4">{{title}}</h{{nestLevel}}>
+{{/notSection}}
+{{#customContent}}
+<h{{nextNestLevel}} class="mt-4">Description</h{{nextNestLevel}}>
+<div class="mt-4">
+{{{.}}}
+</div>
+{{/customContent}}
+{{#hasProperties}}
+<h{{nextNestLevel}} class="mt-4">Properties</h{{nextNestLevel}}>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Property</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#properties.visibleProperties}}
+      <tr>
+        <th>{{definition.title}}</th>
+        <td>{{value}}</td>
+      </tr>
+    {{/properties.visibleProperties}}
+  </tbody>
+</table>
+{{/hasProperties}}
+{{#hasLinkList}}
+<h{{nextNestLevel}} class="mt-4">Child pages</h{{nextNestLevel}}>
+<div class="mt-4">
+  <ul>
+    {{#linkList}}
+    <li><a href="{{slug}}.html">{{title}}</a></li>
+    {{/linkList}}
+    {{#pages}}
+    {{/pages}}
+  </ul>
+</div>
+{{/hasLinkList}}
+{{#hasLinkTable}}
+<h{{nextNestLevel}} class="mt-4">Child pages</h{{nextNestLevel}}>
+{{#linkTable}}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      {{#definitions.definitions}}
+      <th scope="col">{{title}}</th>
+      {{/definitions.definitions}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#rows}}
+      <tr>
+        {{#properties}}
+          <td>
+            {{#childSlug}}<a href="{{.}}.html">{{/childSlug}}  
+            {{value}}
+            {{#childSlug}}</a>{{/childSlug}}  
+          </td>
+        {{/properties}}
+      </tr>
+    {{/rows}}
+  </tbody>
+</table>
+{{/linkTable}}
+{{/hasLinkTable}}
+{{#hasCollections}}
+{{#ownCollections}}
+<h{{nextNestLevel}} class="mt-4">{{title}}</h{{nextNestLevel}}>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      {{#definitions.definitions}}
+      <th scope="col">{{title}}</th>
+      {{/definitions.definitions}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#rows}}
+      <tr>
+        {{#properties}}
+          <td>
+            {{value}}
+          </td>
+        {{/properties}}
+      </tr>
+    {{/rows}}
+  </tbody>
+</table>
+{{/ownCollections}}
+{{/hasCollections}}
+{{#hasRelationshipGroups}}
+<h{{nextNestLevel}} class="mt-4">Relationships</h{{nextNestLevel}}>
+{{#relationshipGroups}}
+<h{{nextNextNestLevel}} class="mt-4">{{typeTitle}}</h{{nextNextNestLevel}}>
+<div class="mt-4">
+  <ul>
+    {{#pages}}
+    <li><a href="{{linkedPageSlug}}.html">{{linkedPageTitle}}</a></li>
+    {{/pages}}
+  </ul>
+</div>
+{{/relationshipGroups}}
+{{/hasRelationshipGroups}}
+{{#hasSections}}
+{{#sections}}
+{{> section}}
+{{/sections}}
+{{/hasSections}}

@@ -1,0 +1,33 @@
+,
+    {
+      "db": "orders_staging",
+      "schema": "very_raw",
+      "tableName": "Clients",
+      "tableScope": "raw",
+      "fields": [
+        {
+          "fieldName": "client_id",
+          "sqlType": "int"
+        },
+        {
+          "fieldName": "client_name",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "client_category",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "country",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "town",
+          "sqlType": "nvarchar(10)"
+        },
+        {
+          "fieldName": "zip",
+          "sqlType": "nvarchar(10)"
+        }
+      ]
+    }
