@@ -35,7 +35,7 @@ const dc2confcloud = require("../../bin/dc2confcloud");
 
 describe("dc2confcloud", () => {
   beforeEach(() => {
-    chai.spy.on(console, 'log', () => '');
+    chai.spy.on(console, 'log', () => 'dc2confcloud');
   })
 
   afterEach(() => {
