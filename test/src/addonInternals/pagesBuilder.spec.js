@@ -23,13 +23,7 @@ describe("buildPages", () => {
     chai.spy.on(fse, 'readFileSync', () => {
       return "testdata";
     });
-  });
-
-  after(() => {
-    chai.spy.restore(fse, 'existsSync');
-    chai.spy.restore(fse, 'readJSONSync');
   })
-  
   beforeEach(() => {
     opt = ob.buildOptions({});
   });
@@ -147,23 +141,13 @@ describe("buildPages", () => {
 
   });
 
-  it("should handle if 'model' input paramters is absent", () => {
+  it("should handle if input paramters are absent (e.g. model, options)", () => {
     assert.throws(
       () => {
         buildPages(undefined, undefined, "");
       },
       Error,
       `Model parameter shouldn't be empty`
-    );
-  });
-
-  it("should handle if 'options' input paramter is absent", () => {
-    assert.throws(
-      () => {
-        buildPages({}, undefined, "");
-      },
-      Error,
-      `Options parameter shouldn't be empty`
     );
 
   });
@@ -178,19 +162,7 @@ describe("buildPages", () => {
       Error,
       `'first' field of sectionBy should be of type 'object'`
     );
-  });
 
-  it("should handle if sectionBy fields are simple values (second = 'test')", () => {
-    const tempOpt = _.cloneDeep(opt);
-    tempOpt.catalogs.dataCatalog.sectionBy.first = { test: 'test'};
-    tempOpt.catalogs.dataCatalog.sectionBy.second = 'test';
-    assert.throws(
-      () => {
-        buildPages(model, tempOpt, "");
-      },
-      Error,
-      `'second' field of sectionBy should be of type 'object'`
-    );
   });
 
   it("pages should be created without Notes pages", () => {
