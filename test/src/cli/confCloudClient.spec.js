@@ -3,6 +3,7 @@ const chai = require("chai");
 const spies = require('chai-spies');
 const axios = require("axios");
 const Qs = require("qs");
+const _ = require("lodash");
 
 const { assert } = chai;
 chai.use(spies);
@@ -15,13 +16,14 @@ describe("confCloudClient", () => {
   const user = 'testUser';
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ik';
 
-  before(() => {
-    chai.spy.on(console, 'log', () => (''));
-  });
+  beforeEach(() => {
+    chai.spy.on(console, 'log', () => 'dc2confcloud');
+  })
 
-  after(() => {
+  afterEach(() => {
     chai.spy.restore(console, 'log');
-  });
+    chai.spy.restore(axios, 'request');
+  })
 
   it("constructor should throw error if incoming baseUrl is empty", () => {
     assert.throws(
@@ -155,7 +157,9 @@ describe("confCloudClient", () => {
     };
     const expectedMakeRequestArgs = ['get',
       '/content',
-      { spaceKey: 'testKey', expand: 'version', title: 'testTitle' }];
+      { spaceKey: 'testKey', expand: 'version', title: 'testTitle' },
+      undefined,
+      false];
 
     let incomingArguments;
 
@@ -378,6 +382,46 @@ describe("confCloudClient", () => {
     const res = await confCloudClient.createOrUpdateContentByTitle(title, 123, 'testBody');
 
     chai.expect(spyGetContentByTitle).to.have.been.called();
+    chai.expect(spyMakeRequest).to.have.been.called();
+    assert.deepEqual(res, { title, id: mockPageInfo.id });
+  });
+
+  it("createOrUpdateContentByTitle should return page info via search endpoint if getContentByTitle retrieve no empty data and noUpdate is false", async () => {
+    const confCloudClient = new ConfCloudClient(url, key, user, token);
+    const makeRequestResponseStatus = 200;
+    const mockPageInfo = {
+      id: 1215,
+      version: {
+        number: 1
+      }
+    };
+
+    const makeRequestResponse = {
+      status: makeRequestResponseStatus,
+      data: {
+        id: mockPageInfo.id,
+        results: [mockPageInfo]
+      },
+      request: {
+        path: 'testPath'
+      }
+    };
+    const title = 'testTitle';
+
+    const spyMakeRequest = chai.spy.on(axios, 'request', (req) => {
+      console.debug('endpoint.includes', req.url)
+      console.debug('endpoint.includes', req.url.includes('search'))
+      if (!req.url.includes('search')) {
+        console.debug('retusnemptyarray')
+        const makeRequestResponseCopy = _.cloneDeep(makeRequestResponse);
+        delete makeRequestResponseCopy.data.results;
+        return Promise.resolve(makeRequestResponseCopy);
+      }
+      console.log('retusnemptyarray2222')
+      return Promise.resolve(makeRequestResponse);
+    });
+    const res = await confCloudClient.createOrUpdateContentByTitle(title, 123, 'testBody');
+
     chai.expect(spyMakeRequest).to.have.been.called();
     assert.deepEqual(res, { title, id: mockPageInfo.id });
   });
