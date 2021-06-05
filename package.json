@@ -1,6 +1,6 @@
 {
   "name": "latona-datacatalog",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Latona addon for generating model-based human-readable data catalog pages (md, html, Confluence Cloud)",
   "main": "./src/addon.js",
   "scripts": {
@@ -19,7 +19,7 @@
   ],
   "license": "Apache 2.0",
   "bin": {
-    "dc2confcloud": "./bin/dc2confcloud.js"
+    "dc2confcloud": "bin/dc2confcloud.js"
   },
   "dependencies": {
     "ajv": "^6.12.2",
