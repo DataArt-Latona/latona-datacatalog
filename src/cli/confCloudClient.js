@@ -3,7 +3,6 @@
  * @private
  */
 /* eslint-disable no-console */
-const _ = require("lodash");
 const chalk = require("chalk");
 const axios = require("axios");
 const Qs = require("qs");
@@ -59,14 +58,12 @@ class ConfCloudClient {
    * @param {Object} data body data
    * @returns {Object} axios response object
    */
-  async makeRequest(method, url, params, data, useSearchUrl = false) {
-    const pageUrl = `https://${this.baseUrl}/wiki/rest/api${url}`;
-    const searchUrl = `https://${this.baseUrl}/wiki/rest/api${url}?${params}`;
+  async makeRequest(method, url, params, data) {
     const req = {
-      url: useSearchUrl ? searchUrl : pageUrl,
+      url: `https://${this.baseUrl}/wiki/rest/api${url}`,
       auth: this.auth,
       method,
-      params: useSearchUrl ? '' : params,
+      params,
       data,
       // we treat statuses at another place, no need to throw here
       validateStatus: () => {
@@ -89,16 +86,15 @@ class ConfCloudClient {
    * @param {string} title
    * @returns {Object} axios response object
    */
-  async getContentByTitle(title, useSearchUrl = false) {
+  async getContentByTitle(title) {
     if (!validators.validateStringNotEmpty(title))
       throw new Error("'title' should be non-empty string");
-    const params = useSearchUrl ? `cql=(space=${this.spaceKey}+and+title="${encodeURI(title)}")&expand=version` : {
+
+    return this.makeRequest(httpMethods.get, "/content", {
       spaceKey: this.spaceKey,
       expand: "version",
       title
-    };
-    const url = useSearchUrl ? "/content/search" : "/content";
-    return this.makeRequest(httpMethods.get, url, params, undefined, useSearchUrl);
+    });
   }
 
   /**
@@ -126,38 +122,27 @@ class ConfCloudClient {
 
     try {
       console.log(chalk.cyan(`Requesting content for title "${title}"`));
-      let existingContentResp = await this.getContentByTitle(title);
-      if ((
+      const existingContentResp = await this.getContentByTitle(title);
+
+      if (
         existingContentResp.status !== 200 &&
         existingContentResp.data &&
         existingContentResp.data.message
-      ) || (
+      ) {
+        throw new Error(
+          `Failed to get content for title "${title}" - server returned error` +
+          `: ${existingContentResp.status} - ${existingContentResp.data.message}`
+        );
+      } else if (
         existingContentResp.status !== 200 ||
         !existingContentResp ||
         !existingContentResp.data ||
         !existingContentResp.data.results
-      )) {
-        existingContentResp = await this.getContentByTitle(title, true);
-        if (
-          existingContentResp.status !== 200 &&
-          existingContentResp.data &&
-          existingContentResp.data.message
-        ) {
-          throw new Error(
-            `Failed to get content for title "${title}" - server returned error` +
-            `: ${existingContentResp.status} - ${existingContentResp.data.message}`
-          );
-        } else if (
-          existingContentResp.status !== 200 ||
-          !existingContentResp ||
-          !existingContentResp.data ||
-          !existingContentResp.data.results
-        ) {
-          throw new Error(
-            `Failed to get content for title "${title}" - empty response,` +
-            ` status code ${existingContentResp.status}`
-          );
-        }
+      ) {
+        throw new Error(
+          `Failed to get content for title "${title}" - empty response,` +
+          ` status code ${existingContentResp.status}`
+        );
       }
 
       // update existing page

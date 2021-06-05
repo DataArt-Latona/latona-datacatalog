@@ -32,18 +32,12 @@ describe("dc2cc", () => {
   };
 
   beforeEach(() => {
-    chai.spy.on(console, 'log', () => '');
-    chai.spy.on(fs, 'readFileSync', () => 'some text for body');
-  })
+    chai.spy.on(console, 'log', () => (''));
+  });
 
   afterEach(() => {
     chai.spy.restore(console, 'log');
-    chai.spy.restore(fs, 'readJSONSync');
-    chai.spy.restore(fs, 'existsSync');
   });
-
-
-
 
   it("dc2cc should throw error if confluence is not object", async () => {
     let f = () => { };
