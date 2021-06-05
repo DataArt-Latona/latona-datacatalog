@@ -1,6 +1,6 @@
 {
   "name": "latona-datacatalog",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Latona addon for generating model-based human-readable data catalog pages (md, html, Confluence Cloud)",
   "main": "./src/addon.js",
   "scripts": {
